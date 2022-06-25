@@ -3,7 +3,6 @@ from users.models import Profile
 from listings.models import Listing
 from listings.api.serializers import ListingSerializer
 
-
 class ProfileSerializer(serializers.ModelSerializer):
     seller_listings = serializers.SerializerMethodField()
 
