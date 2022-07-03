@@ -9,6 +9,16 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+def compress(picture):
+    if picture:
+        pic = PIL.Image.open(picture)
+        buf = BytesIO()
+        pic.save(buf, 'JPEG', quality=35)
+        new_pic = File(buf, name=picture.name)
+        return new_pic
+    else:
+        return None
+
 class Listing(models.Model):
     seller = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
@@ -91,13 +101,3 @@ class Poi(models.Model):
 
     def __str__(self):
         return self.name
-
-def compress(picture):
-    if picture:
-        pic = PIL.Image.open(picture)
-        buf = BytesIO()
-        pic.save(buf, 'JPEG', quality=40)
-        new_pic = File(buf, name=picture.name)
-        return new_pic
-    else:
-        return None
